@@ -16,6 +16,10 @@ gulp.task('default',function() {
 ```
 ## Gulp Plugins
 ### gulp-about
+About Plugin that retrieves information form package.json
+```sh
+npm install --save-dev gulp-about
+```
 ```javascript
 var gulp = require('gulp')
 var about = require('gulp-about')
@@ -39,6 +43,9 @@ gulp.task('about', function () {
 ```
 ### gulp-util
 Utility functions for gulp plugins
+```sh
+npm install --save-dev gulp-util
+```
 ```javascript
 var gulp = require('gulp')
 var gutil = require('gulp-util')
