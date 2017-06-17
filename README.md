@@ -79,3 +79,59 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('dist/'));
 });
 ```
+### gulp-sass
+Plugin to convert sass files to css
+```sh
+npm install --save-dev gulp-sass
+```
+```javascript
+var gulp = require("gulp")
+var sass = require("gulp-sass")
+
+gulp.task('sass',function() {
+    gulp.src('src/sass/**/*.scss)
+    .pipe(sass)
+    .pipe(gulp.dest('dist/css'))
+})
+```
+### gulp-babel
+To convert javascript code from ES6 to ES5
+```sh
+npm install --save-dev gulp-babel
+npm install --save-dev npm install babel-preset-env --save-dev
+```
+```sh
+touch .babelrc
+```
+_.babelrc_
+```json
+{
+    "presets" : ["env"]
+}
+```
+```javascript
+var gulp = require("gulp");
+var babel = require("gulp-babel");
+
+gulp.task("default", function () {
+  return gulp.src("src/app.js")
+    .pipe(babel())
+    .pipe(gulp.dest("dist"));
+});
+```
+Using sourcemaps
+```javascript
+var gulp = require("gulp");
+var sourcemaps = require("gulp-sourcemaps");
+var babel = require("gulp-babel");
+var concat = require("gulp-concat");
+
+gulp.task("default", function () {
+  return gulp.src("src/**/*.js")
+    .pipe(sourcemaps.init())
+    .pipe(babel())
+    .pipe(concat("all.js"))
+    .pipe(sourcemaps.write("."))
+    .pipe(gulp.dest("dist"));
+});
+```
