@@ -4,6 +4,16 @@ var about = require('gulp-about')
 var clean = require('gulp-clean')
 var util = require('gulp-util')
 
+var bases = {
+    src: 'src/',
+    dist: 'dist/'
+}
+
+var sources = {
+    html: ['*.html'],
+    sass: ['sass/**/*.scss']
+}
+
 //about plugin
 gulp.task('about', ['clean'], function() {
     return gulp.src('package.json')
@@ -19,10 +29,16 @@ gulp.task('about', ['clean'], function() {
 //clean plugin
 gulp.task('clean', function() {
     util.log('Inside clean plugin...')
-    return gulp.src('dist/**', { read: false })
+    return gulp.src('/dist/**', { read: false })
         .pipe(clean())
 })
 
-gulp.task('default', function() {
-    console.log('Welcome to Gulp');
+//copy html
+gulp.task('copy-html', function() {
+    gulp.src('src/*.html')
+        .pipe(gulp.dest('dist'))
+})
+
+gulp.task('default', ['clean', 'about', 'copy-html'], function() {
+    console.log('Gulp Running...');
 })
