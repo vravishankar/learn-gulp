@@ -1,7 +1,8 @@
 // Get Gulp
 var gulp = require('gulp')
+
 var about = require('gulp-about')
-var clean = require('gulp-clean')
+var del = require('del')
 var util = require('gulp-util')
 
 var bases = {
@@ -15,28 +16,26 @@ var sources = {
 }
 
 //about plugin
-gulp.task('about', ['clean'], function() {
-    return gulp.src('package.json')
+gulp.task('about', function() {
+    gulp.src('package.json')
         .pipe(about({
             keys: ['name', 'version', 'author'],
             inject: {
                 buildDate: Date.now()
             }
         }))
-        .pipe(gulp.dest('dist'))
+        .pipe(gulp.dest(bases.dist))
 })
 
 //clean plugin
 gulp.task('clean', function() {
-    util.log('Inside clean plugin...')
-    return gulp.src('/dist/**', { read: false })
-        .pipe(clean())
+    del.sync[bases.dist]
 })
 
 //copy html
 gulp.task('copy-html', function() {
-    gulp.src('src/*.html')
-        .pipe(gulp.dest('dist'))
+    gulp.src(sources.html, { cwd: bases.src })
+        .pipe(gulp.dest(bases.dist))
 })
 
 gulp.task('default', ['clean', 'about', 'copy-html'], function() {
