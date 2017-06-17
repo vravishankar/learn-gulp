@@ -41,6 +41,27 @@ gulp.task('about', function () {
         .pipe(gulp.dest('dist'));
 });
 ```
+### gulp-clean
+Helps to remove files / folders
+```sh
+npm install --save-dev gulp-clean
+```
+```javascript
+var gulp = require('gulp');
+var clean = require('gulp-clean');
+ 
+gulp.task('clean-scripts', function () {
+  return gulp.src('app/tmp/*.js', {read: false})
+    .pipe(clean());
+});
+ 
+gulp.task('scripts', ['clean-scripts'], function () {
+  gulp.src('app/scripts/*.js')
+    .pipe(gulp.dest('app/tmp'));
+});
+ 
+gulp.task('default', ['scripts']);
+```
 ### gulp-util
 Utility functions for gulp plugins
 ```sh
